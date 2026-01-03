@@ -20,7 +20,11 @@ const SBoxTable: React.FC<SBoxTableProps> = ({ visible }) => {
         <div className="flex">
           <div className="w-6 h-6"></div> {/* Corner spacer */}
           {hexLabels.map(h => (
-            <div key={`head-${h}`} className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-[10px] text-slate-500 font-mono">
+            <div 
+              key={`head-${h}`} 
+              id={`sbox-col-header-${h}`} // Added ID for highlighting
+              className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-[10px] text-slate-500 font-mono transition-colors duration-200"
+            >
               {h}
             </div>
           ))}
@@ -30,7 +34,10 @@ const SBoxTable: React.FC<SBoxTableProps> = ({ visible }) => {
         {hexLabels.map((rowLabel, rowIndex) => (
           <div key={`row-${rowIndex}`} className="flex">
              {/* Row Label */}
-             <div className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-[10px] text-slate-500 font-mono">
+             <div 
+               id={`sbox-row-header-${hexLabels[rowIndex]}`} // Added ID for highlighting
+               className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-[10px] text-slate-500 font-mono transition-colors duration-200"
+             >
                {rowLabel}
              </div>
              
