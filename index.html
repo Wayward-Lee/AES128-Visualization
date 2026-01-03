@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AES-128 Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      
+      /* 3D Perspective for Flips */
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      
+      /* KEYFRAMES */
+
+      /* SubBytes Flip */
+      @keyframes flip-cell {
+        0% { transform: rotateY(0deg); border-color: #334155; }
+        40% { transform: rotateY(90deg); border-color: #f472b6; }
+        60% { transform: rotateY(90deg); border-color: #f472b6; }
+        100% { transform: rotateY(0deg); border-color: #334155; }
+      }
+
+      /* AddRoundKey Merge */
+      @keyframes key-overlay-slide {
+        0% { opacity: 0; transform: translate(120%, 0) scale(0.8); }
+        20% { opacity: 1; transform: translate(120%, 0) scale(1); }
+        60% { opacity: 1; transform: translate(0, 0) scale(1); }
+        80% { opacity: 0; transform: translate(0, 0) scale(1.1); }
+        100% { opacity: 0; transform: translate(0, 0); }
+      }
+
+      @keyframes key-impact-flash {
+        0%, 55% { background-color: #1e293b; color: #cbd5e1; transform: scale(1); }
+        60% { background-color: #3b82f6; color: white; transform: scale(1.2); box-shadow: 0 0 15px #3b82f6; }
+        100% { background-color: #1e293b; color: #cbd5e1; transform: scale(1); }
+      }
+
+      /* ShiftRows Slide */
+      @keyframes slide-left-1 {
+        0% { transform: translateX(0); opacity: 1; }
+        40% { transform: translateX(-120%); opacity: 0; }
+        41% { transform: translateX(120%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slide-left-2 {
+        0% { transform: translateX(0); opacity: 1; }
+        40% { transform: translateX(-240%); opacity: 0; }
+        41% { transform: translateX(240%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slide-left-3 {
+        0% { transform: translateX(0); opacity: 1; }
+        40% { transform: translateX(-360%); opacity: 0; }
+        41% { transform: translateX(360%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+      }
+
+      /* MixColumns Shake */
+      @keyframes mix-col-shake {
+        0% { transform: translateY(0); border-color: #334155; }
+        25% { transform: translateY(-5px); border-color: #a855f7; background-color: rgba(168, 85, 247, 0.2); }
+        50% { transform: translateY(5px); border-color: #a855f7; background-color: rgba(168, 85, 247, 0.2); }
+        75% { transform: translateY(-2px); border-color: #a855f7; }
+        100% { transform: translateY(0); border-color: #334155; }
+      }
+
+      /* Utility Classes for Animation Triggering */
+      .animate-flip-cell { animation: flip-cell 1.5s ease-in-out forwards; }
+      .animate-key-slide { animation: key-overlay-slide 2s ease-in-out forwards; }
+      .animate-impact { animation: key-impact-flash 2s ease-in-out forwards; }
+      .animate-shift-1 { animation: slide-left-1 1.5s ease-in-out forwards; }
+      .animate-shift-2 { animation: slide-left-2 1.5s ease-in-out forwards; }
+      .animate-shift-3 { animation: slide-left-3 1.5s ease-in-out forwards; }
+      .animate-mix { animation: mix-col-shake 1.5s ease-in-out forwards; }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-950 text-slate-100">
+    <div id="root"></div>
+  </body>
+</html>

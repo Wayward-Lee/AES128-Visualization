@@ -1,0 +1,5 @@
+{
+  "name": "AES-128 Visualizer",
+  "description": "Interactive step-by-step visualization of the AES-128 encryption algorithm.",
+  "requestFramePermissions": []
+}
